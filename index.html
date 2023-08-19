@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Validation Example</title>
+    <script>
+        // Function to validate the form before submission
+        function validateForm() {
+            var name = document.forms["myForm"]["name"].value;
+            var email = document.forms["myForm"]["email"].value;
+            var address = document.forms["myForm"]["address"].value;
+            var country = document.forms["myForm"]["country"].value;
+            var pincode = document.forms["myForm"]["pincode"].value;
+            var mobile = document.forms["myForm"]["mobile"].value;
+            
+            if (name == "" || email == "" || address == "" || country == "") {
+                alert("All fields must be filled out");
+                return false; // Prevent form submission
+            }
+            var pincodePattern = /^\d{6}$/; // 6 digits
+            if (!pincodePattern.test(pincode)) {
+                alert("PIN code must be 6 numeric digits.");
+                return false;
+            }
+            var mobilePattern = /^\d{10}$/; // 10 digits
+            if (!mobilePattern.test(mobile)) {
+                alert("Number must be 10 numeric digits.");
+                return false;
+            }
+            var message = "Form submitted!";
+            document.getElementById("submissionMessage").innerText = message;
+            return false;
+        }
+    </script>
+</head>
+<body>
+    <h1>Create / Update Profile</h1>
+    <form name="myForm" action="submit.php" onsubmit="return validateForm()" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br><br>
+
+        <label for="address">Address:</label><br>
+        <textarea id="address" name="address" rows="2" cols="40"></textarea><br><br>
+
+        <label for="country">Country:</label>
+        <select id="country" name="country">
+            <option value="">Select a Country</option>
+            <option value="Australia">Australia</option>
+            <option value="Brazil">Brazil</option>
+            <option value="Canada">Canada</option>
+            <option value="Denmark">Denmark</option>
+            <option value="Ghana">Ghana</option>
+            <option value="India">India</option>
+            <option value="Italy">Italy</option>
+            <option value="UK">United Kingdom</option>
+            <option value="USA">United States</option>
+            
+            
+        </select><br><br>
+        
+        <label for="pincode">PIN Code:</label>
+        <input type="text" id="pincode" name="pincode" pattern="\d{6}" title="Six numeric digits" maxlength="6"><br><br>
+
+        <label for="mobile">Mobile:</label>
+        <input type="text" id="mobile" name="mobile" pattern="\d{10}" title="Ten numeric digits" maxlength="10"><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+    <p id="submissionMessage"></p>
+</body>
+</html>
